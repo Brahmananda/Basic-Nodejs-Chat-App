@@ -10,3 +10,6 @@ to run
 
 node server.js
 
+open http://localhost:4040
+in browser
+
