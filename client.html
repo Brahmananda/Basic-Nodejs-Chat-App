@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<meta charset=utf-8>
+<title></title>
+</head>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"></link>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+
+<body>
+
+
+<div class="container">
+	
+<div class="panel panel-info">
+	<div class="panel-heading">
+		<h3 class="panel-title">Chat App</h3>
+	</div>
+	<div class="panel-body">
+
+		<div class="jumbotron" id='panel'>
+
+			<span class="label label-default">Chat Start</span>
+		</div>
+
+<div class="row">
+	<div class="col-md-8">
+		
+<input type="textarea" class="form-control" row="3" id="chat">
+
+	</div>
+	<div class="col-md-2 col-md-offset-2"><button class="btn btn-primary btn-lg " id="send">Send</button></div>
+</div>
+
+	
+	</div>
+</div>
+
+</div>
+
+<body>
+<script type="text/javascript">
+//var socket = io.connect();
+
+var socket = io.connect("http://localhost:4040");
+
+socket.on('greet',function(name){
+	
+	console.log("Hello" +	name);
+});
+
+
+$(document).ready(function($) {
+
+$("#send").bind('click keyup', function() {
+
+var text=$('#chat').val();
+
+socket.emit('sendc',text);
+
+
+});
+	
+});
+
+socket.on('sends',function(data){
+
+	console.log("Server");
+
+$("#panel").append(data)
+
+
+});
+
+</script>
+</html>
